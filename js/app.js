@@ -1,26 +1,17 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-  this.resource("about");
-  this.resource("students", function(){
+  this.resource("index", { path: "/" }, function(){
     this.resource("student", { path: ":firstname" }, function(){
       this.resource("homework");
       this.resource("grades");
       this.resource("missing");
     });
   });
+  this.resource("about");
 });
 
 App.IndexRoute = Ember.Route.extend({
-  renderTemplate: function() {
-    this.render('students');
-  },
-  model: function() {
-    return students;
-  }
-});
-
-App.StudentsRoute = Ember.Route.extend({
   model: function() {
     return students;
   }
@@ -28,7 +19,11 @@ App.StudentsRoute = Ember.Route.extend({
 
 App.StudentRoute = Ember.Route.extend({
   model: function(params){
-    return students.findBy('firstname', params.firstname);  }
+    return students.findBy('firstname', params.firstname);
+  },
+  afterModel: function(){
+    this.transitionTo('grades');
+  }
 });
 
 var students = [

@@ -26,7 +26,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li>{{#link-to 'students'}}Students{{/link-to}}</li>
+            <li>{{#link-to 'index'}}Students{{/link-to}}</li>
             <li>{{#link-to 'about'}}About{{/link-to}}</li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -35,16 +35,11 @@
     
     {{outlet}}
         
-    <p>Ads go here</p>
-  </script>
-
-  <script type="text/x-handlebars" id="about">
-    <p>This is the about page</p>
   </script>
   
-  <script type="text/x-handlebars" id="students">
+  <script type="text/x-handlebars" id="index">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-2">
         <ul>
           {{#each pupil in model}}
             <li>{{#link-to 'student' pupil.firstname}} {{pupil.firstname}} {{pupil.lastname}} {{/link-to}}</li>
@@ -56,16 +51,36 @@
       <div class="col-sm-8">
         {{outlet}}
       </div>
+      <div class="col-sm-2">
+        <p>Ads ads ads</p>
+      </div>  
     </div>
+  </script>
+
+
+  <script type="text/x-handlebars" id="about">
+    <p>This is the about page</p>
+  </script>
+  
+  <script type="text/x-handlebars" id="index/index">
+    <p>Please choose a student...</p>
   </script>
 
   <script type="text/x-handlebars" id="student">
     <p>Name: {{firstname}} ( {{grade}} )</p>
     
     <ul class="nav nav-tabs" role="tablist">
-      <li>{{#link-to 'grades' this}}Grades{{/link-to}}</li>
-      <li>{{#link-to 'homework' this}}Homework{{/link-to}}</li>
-      <li>{{#link-to 'missing' this}}Missing{{/link-to}}</li>
+      {{#link-to 'grades' this tagName="li" href="false"}}
+        {{#link-to 'grades' this}}Grades{{/link-to}}
+      {{/link-to}}
+      
+      {{#link-to 'homework' this tagName="li" href="false"}}
+        {{#link-to 'homework' this}}Homework{{/link-to}}
+      {{/link-to}}
+      
+      {{#link-to 'missing' this tagName="li" href="false"}}
+        {{#link-to 'missing' this}}Missing{{/link-to}}
+      {{/link-to}}
     </ul>
     
     {{outlet}}
