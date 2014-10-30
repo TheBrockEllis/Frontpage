@@ -41,8 +41,8 @@
     <div class="row">
       <div class="col-sm-2">
         <ul>
-          {{#each pupil in model}}
-            <li>{{#link-to 'student' pupil.firstname}} {{pupil.firstname}} {{pupil.lastname}} {{/link-to}}</li>
+          {{#each child}}
+            <li>{{#link-to 'student' child.FirstName}} {{child.FirstName}} {{child.LastName}} {{/link-to}}</li>
           {{else}}
             <li>No students specified.</li>
           {{/each}}

@@ -13,7 +13,9 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return students;
+    //return students;
+    var url = "https://app.sycamoreeducation.com/Family/647150/Students";
+    return Ember.$.getJSON(url);
   }
 });
 
@@ -42,3 +44,11 @@ var students = [
     grade: '0'
   }
 ];
+
+$.ajaxSetup({
+   'beforeSend': function(xhr) {           
+      //var access_token = localStorage.getItem("sycamore_auth");
+      var access_token = "dcc460446ecc8d5f5ae896caf7623155";
+      xhr.setRequestHeader('Authorization', 'Bearer '+access_token);
+    }
+});
