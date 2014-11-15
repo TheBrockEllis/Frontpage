@@ -28,6 +28,7 @@
           <ul class="nav navbar-nav">
             <li>{{#link-to 'index'}}Students{{/link-to}}</li>
             <li>{{#link-to 'about'}}About{{/link-to}}</li>
+            <li class="pull-right"><a href="login.html">Login</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -40,13 +41,17 @@
   <script type="text/x-handlebars" id="index">
     <div class="row">
       <div class="col-sm-2">
-        <ul>
-          {{#each child}}
-            <li>{{#link-to 'student' child.FirstName}} {{child.FirstName}} {{child.LastName}} {{/link-to}}</li>
+          {{#each child in model}}
+            <div class='btn-group-vertical'>
+            {{#link-to 'student' child.FirstName}}
+              <button type='button' class='btn btn-default'>
+                {{child.FirstName}} {{child.LastName}}
+              </button>
+            {{/link-to}}
+            </div>
           {{else}}
-            <li>No students specified.</li>
+            <p>No students specified.</p>
           {{/each}}
-        </ul>
       </div>
       <div class="col-sm-8">
         {{outlet}}
@@ -82,20 +87,56 @@
         {{#link-to 'missing' this}}Missing{{/link-to}}
       {{/link-to}}
     </ul>
-    
-    {{outlet}}
+   
+    <div id="content"> 
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+
+      {{outlet}}
+    </div>
   </script>
   
   <script type="text/x-handlebars" id="homework">
-    <p>Homework for this student</p>
+    {{#each homework in model}}
+        <p>{{homework.classname}} - {{homework.title}} Due {{homework.duedate}}</p>
+    {{else}}
+        <p>No homework posted</p>
+    {{/each}}
   </script>
   
+  <!--<script type="text/x-handlebars" id="grades">
+    <p>Grades</p> 
+  </script>-->
+
   <script type="text/x-handlebars" id="grades">
-    <p>Grades for this student</p>
+    {{#each grade in model}}
+        <p>
+          {{grade.classname}}
+            {{#if grade.subjectid}}
+                {{grade.subjectname}}
+            {{/if}}
+          {{grade.number}} / {{grade.letter}}
+        </p>
+    {{else}}
+        <p>No grades posted</p>
+    {{/each}}
   </script>
   
   <script type="text/x-handlebars" id="missing">
-    <p>Missing for this student</p>
+    {{#each grade in model}}
+        <p>
+          {{grade.title}} in
+          {{grade.classname}}  
+            {{#if grade.subjectid}}
+                ({{grade.subjectname}})
+            {{/if}}
+          was due {{grade.duedate}}
+        </p>
+    {{else}}
+        <p>No grades posted</p>
+    {{/each}}
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
