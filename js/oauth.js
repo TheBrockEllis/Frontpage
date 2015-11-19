@@ -1,4 +1,4 @@
-var client_id = "5466e01ee3fc3"; // Replace text in quotes with your API Key
+var client_id = ""; // Replace text in quotes with your API Key
 var callback_uri = "http://localhost/Frontpage/login.html";
 //var callback_uri = "http://www.google.com";
 
